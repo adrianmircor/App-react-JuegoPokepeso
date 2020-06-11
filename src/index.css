@@ -10,7 +10,7 @@ header {
 
 .pokemon {
   background-color: rgb(223, 223, 57);
-  border-radius: 10%;
+  border-radius: 13%;
 }
 .col-md-4 {
   padding: 0;
@@ -44,4 +44,19 @@ header {
     margin-left: -20px;
     margin-right: -20px;
   }
+}
+
+.boton {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.boton:hover,
+.boton:active,
+.boton:focus {
+  border-top-left-radius: 50%; 
+  border-top-right-radius: 10%; 
+  border-radius: 10%;
+  outline: none; /*quita el foco alrededor del boton al hacer clic*/
+
 }

@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 
 //REDUX
 import { useSelector, useDispatch } from "react-redux";
-import { cargarPokeIzq, cargarPokeDer } from "../../actions/pokemonAction";
+import {
+  cargarPokeIzq,
+  cargarPokeDer,
+  cargarPokeBd,
+} from "../../actions/pokemonAction";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -13,72 +17,89 @@ const Main = () => {
 
     /*if pokeizq null -> generarId */
     /*if pokeder null -> generarId */
-    if (!pokeizq) {
+    if (pokeizq.nombre === "") {
       generarIdIzq();
     }
-    if (pokeder.nombre==="") {
+    if (pokeder.nombre === "") {
       generarIdDer();
     }
   }, []);
   const pokeizq = useSelector((state) => state.pokemon.pokeizq);
   const pokeder = useSelector((state) => state.pokemon.pokeder);
-  /*   const poke = useSelector((state) => console.log(state.pokemon));
-   */ const [pokemonIzq, setPokemonIzq] = useState({
-    nombre: "",
-    imagen: "",
-  });
-  const [pokemonDer, setPokemonDer] = useState({
-    nombre: "",
-    imagen: "",
-  });
-
-  const [imgpokeizq, setImgPokeIzq] = useState("");
-  const [imgpokeDer, setImgPokeDer] = useState("");
+  const pokebd = useSelector((state) => state.pokemon.pokebd);
 
   function generarIdIzq() {
     let id = Math.floor(Math.random() * 150) + 1;
 
     //Comparar con el array, si es distinto -> llamar api
+    let idEncontrado = pokebd.find((pok) => pok.id === id);
+    console.log("id encontrado ", idEncontrado);
+    if (idEncontrado !== undefined) return null;
 
     let pokeData = getPokemonAsync(id);
     //RESOLVIENDO LA PROMESA
     pokeData.then(function (value) {
-      setPokemonIzq({
-        ...pokemonIzq,
-        nombre: value.name,
-        imagen: value.sprites.front_default,
-      });
+      dispatch(
+        cargarPokeIzq({
+          id: value.id,
+          nombre: value.name,
+          imagen: value.sprites.front_default,
+        })
+      );
+      dispatch(
+        cargarPokeBd({
+          id: value.id,
+          nombre: value.name,
+          imagen: value.sprites.front_default,
+        })
+      );
 
-      
-      console.log("State propio izq ", value);
+      //
+      console.log("then izq ", pokebd);
+      console.log("then izq ", pokeizq);
+
     });
 
-    console.log("Del api2 ", pokeizq);
+    console.log("Redux izq ", pokeizq);
+    console.log("pokebd izq ", pokebd);
   }
 
   function generarIdDer() {
     let id = Math.floor(Math.random() * 150) + 1;
 
     //Comparar con el array, si es distinto -> llamar api
+    let idEncontrado = pokebd.find((pok) => pok.id === id);
+    console.log("id encontrado ", idEncontrado);
+    if (idEncontrado !== undefined) return null;
 
     let pokeData = getPokemonAsync(id);
     //RESOLVIENDO LA PROMESA
-
     pokeData.then(function (value) {
       dispatch(
         cargarPokeDer({
-          nombre: value.name,   
+          id: value.id,
+          nombre: value.name,
           imagen: value.sprites.front_default,
         })
       );
+      dispatch(
+        cargarPokeBd({
+          id: value.id,
+          nombre: value.name,
+          imagen: value.sprites.front_default,
+        })
+      );
+      console.log("xxx ", value);
+
     });
-    setTimeout(() => {
-          
-        console.log("Redux store----------- ", pokeder);
-    }, 2000);
+    console.log("Redux der ", pokeder);
+    console.log("pokebd der ", pokebd);
+
   }
 
   async function getPokemonAsync(id) {
+
+
     let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     let data = await response.json();
     console.log(data.name);
@@ -90,8 +111,10 @@ const Main = () => {
     <div className="row d-flex justify-content-center mt-4 mb-5">
       <div className="pokemon col-md-4 ">
         <div className="">
-          <img className="pokem" src={pokemonIzq.imagen} width="300px" alt="" />
-          <h5 className="text-center">{pokemonIzq.nombre.toUpperCase()}</h5>
+          <button className="boton">
+            <img className="pokem" src={pokeizq.imagen} width="300px" alt="" />
+          </button>
+          <h5 className="text-center">{pokeizq.nombre.toUpperCase()}</h5>
         </div>
       </div>
       <div className="pokebola col-md-4 d-flex justify-content-center align-self-center ">
@@ -101,7 +124,9 @@ const Main = () => {
       </div>
       <div className="pokemon col-md-4">
         <div className="">
-          <img className="pokem" src={pokeder.imagen} width="300px" alt="" />
+          <button className="boton">
+            <img className="pokem" src={pokeder.imagen} width="300px" alt="" />
+          </button>
           <h5 className="text-center">{pokeder.nombre.toUpperCase()}</h5>
         </div>
       </div>

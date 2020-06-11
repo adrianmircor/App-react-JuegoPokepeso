@@ -7,9 +7,9 @@ import {
 //Las Funciones despachan a Actions (contiene type y payload)
 
 //Función para Cargar un nuevo pokemon al lado izquierdo
-export function cargarPokeBd() {
-  return async (dispatch) => {
-    dispatch(cargarPokemonBaseDatos());
+export function cargarPokeBd(pokemon) {
+  return (dispatch) => {
+    dispatch(cargarPokemonBaseDatos(pokemon));
   };
 }
 
@@ -20,7 +20,7 @@ const cargarPokemonBaseDatos = (pokemon) => ({
 
 //Función para Cargar un nuevo pokemon al lado izquierdo
 export function cargarPokeIzq(pokemon) {
-  return async (dispatch) => {
+  return (dispatch) => {
     dispatch(cargarPokemonIzquierda(pokemon));
   };
 }
@@ -32,7 +32,7 @@ const cargarPokemonIzquierda = (pokemon) => ({
 
 //Función para Cargar un nuevo pokemon al lado derecho
 export function cargarPokeDer(pokemon) {
-  return async (dispatch) => {
+  return (dispatch) => {
     dispatch(cargarPokemonDerecha(pokemon));
   };
 }

@@ -1,3 +1,5 @@
+//Falta definir el puntaje, que no salgan pokemones iguales y modal
+
 import React, { useEffect, useState } from "react";
 
 //REDUX
@@ -6,6 +8,9 @@ import {
   cargarPokeIzq,
   cargarPokeDer,
   cargarPokeBd,
+  reiniciarPokeBd,
+  cargarPokeIzqExito,
+  cargarPokeDerExito,
 } from "../../actions/pokemonAction";
 
 const Main = () => {
@@ -26,38 +31,42 @@ const Main = () => {
 
   //FALTA AGREGAR MODAL
   const handleClickPok = (poke) => {
-    console.log("click a ", poke.name);
+    /* console.log("click a ", poke.name); */
 
     if (pokeizq.weight > pokeder.weight) {
       if (poke === pokeizq) {
-        console.log("GANASTE: escogiste a ", poke.name);
-        console.log("Pesa -> ", poke.weight);
-        dispatch(cargarPokeDer(pokebd));
-        //FALTA AGREGAR MODAL -> "VAS BIEN"
+        if (pokebd.length === 5) {
+          //Mostrar modal y terminar el programa
+          console.log("Ganaste");
+          dispatch(reiniciarPokeBd());
+        } else {
+          //FALTA AGREGAR MODAL -> "VAS BIEN"
+          dispatch(cargarPokeDer(pokebd));
+        }
       } else {
-        console.log("PERDISTE: escogiste a ", poke.name);
-        console.log("Pesa -> ", poke.weight);
-        //TRAER A 2 NUEVOS POKEMONES
-
         //FALTA AGREGAR MODAL -> CARITA TRISTE
         //MOSTRAR PESOS DE AMBOS POKEMONES
+        dispatch(reiniciarPokeBd());
 
         dispatch(cargarPokeIzq(pokebd));
         dispatch(cargarPokeDer(pokebd));
       }
     } else {
       if (poke === pokeder) {
-        console.log("GANASTE: escogiste a ", poke.name);
-        console.log("Pesa -> ", poke.weight);
-        dispatch(cargarPokeIzq(pokebd));
-        //FALTA AGREGAR MODAL -> "VAS BIEN"
+        if (pokebd.length === 5) {
+          //Mostrar modal y terminar el programa
+          console.log("Ganaste");
+          dispatch(reiniciarPokeBd());
+        } else {
+          //FALTA AGREGAR MODAL -> "VAS BIEN"
+          dispatch(cargarPokeIzq(pokebd));
+        }
       } else {
-        console.log("PERDISTE: escogiste a ", poke.name);
-        console.log("Pesa -> ", poke.weight);
         //TRAER A 2 NUEVOS POKEMONES
 
         //FALTA AGREGAR MODAL -> CARITA TRISTE
         //MOSTRAR PESOS DE AMBOS POKEMONES
+        dispatch(reiniciarPokeBd());
         dispatch(cargarPokeIzq(pokebd));
         dispatch(cargarPokeDer(pokebd));
       }

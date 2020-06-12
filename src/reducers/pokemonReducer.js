@@ -2,6 +2,7 @@ import {
   AGREGAR_A_POKEBD,
   AGREGAR_A_POKEIZQ,
   AGREGAR_A_POKEDER,
+  REINICIAR_POKEBD,
 } from "../types";
 
 //Cada reducer tiene su propio state
@@ -28,6 +29,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         pokeder: action.payload,
+      };
+    case REINICIAR_POKEBD:
+      return {
+        ...state,
+        pokebd: [],
       };
     default:
       return state;

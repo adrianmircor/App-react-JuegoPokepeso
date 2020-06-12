@@ -19,9 +19,18 @@ const cargarPokemonBaseDatos = (pokemon) => ({
 });
 
 //Función para Cargar un nuevo pokemon al lado izquierdo
-export function cargarPokeIzq() {
+export function cargarPokeIzq(pokebd) {
   return async (dispatch) => {
-    let id = Math.floor(Math.random() * 150) + 1;
+    //Antes de llamar a APi, corroborar si el id es nuevo o no
+    //Si es nuevo, llamar a api,
+    let id;
+    let idEncontrado;
+    do {
+      id = generarRandom();
+      idEncontrado = pokebd.find((pok) => pok.id === id);
+      console.log("DIO POKEMON REPETIDO -> ",idEncontrado)
+    } while (idEncontrado);
+    //Sino llamar otra vez a Math.random
 
     try {
       let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
@@ -75,3 +84,8 @@ const cargarPokemonDerecha = (pokemon) => ({
   type: AGREGAR_A_POKEDER,
   payload: pokemon,
 });
+
+const generarRandom = () => {
+  let id = Math.floor(Math.random() * 150) + 1;
+  return id;
+};

@@ -15,15 +15,8 @@ const Main = () => {
   const pokeder = useSelector((state) => state.pokemon.pokeder);
   const pokebd = useSelector((state) => state.pokemon.pokebd);
   useEffect(() => {
-    //si array de PokeView hay 2 -> no llamar a generarId
-    //si array de PokeView hay 1 -> llamar 1 vez a generarId
-    //si array de PokeView hay 0 -> llamar 2 veces a generarId
-
-    /*if pokeizq null -> generarId */
-    /*if pokeder null -> generarId */
-
-    dispatch(cargarPokeIzq());
-    dispatch(cargarPokeDer());
+    dispatch(cargarPokeIzq(pokebd));
+    dispatch(cargarPokeDer(pokebd));
   }, []);
 
   /* console.log("AQUI -> ", pokeizq);
@@ -39,7 +32,7 @@ const Main = () => {
       if (poke === pokeizq) {
         console.log("GANASTE: escogiste a ", poke.name);
         console.log("Pesa -> ", poke.weight);
-        dispatch(cargarPokeDer());
+        dispatch(cargarPokeDer(pokebd));
         //FALTA AGREGAR MODAL -> "VAS BIEN"
       } else {
         console.log("PERDISTE: escogiste a ", poke.name);
@@ -47,16 +40,16 @@ const Main = () => {
         //TRAER A 2 NUEVOS POKEMONES
 
         //FALTA AGREGAR MODAL -> CARITA TRISTE
-        //MOSTRAR PESOS DE AMBOS POKEMONES 
+        //MOSTRAR PESOS DE AMBOS POKEMONES
 
-        dispatch(cargarPokeIzq());
-        dispatch(cargarPokeDer());
+        dispatch(cargarPokeIzq(pokebd));
+        dispatch(cargarPokeDer(pokebd));
       }
     } else {
       if (poke === pokeder) {
         console.log("GANASTE: escogiste a ", poke.name);
         console.log("Pesa -> ", poke.weight);
-        dispatch(cargarPokeIzq());
+        dispatch(cargarPokeIzq(pokebd));
         //FALTA AGREGAR MODAL -> "VAS BIEN"
       } else {
         console.log("PERDISTE: escogiste a ", poke.name);
@@ -64,9 +57,9 @@ const Main = () => {
         //TRAER A 2 NUEVOS POKEMONES
 
         //FALTA AGREGAR MODAL -> CARITA TRISTE
-        //MOSTRAR PESOS DE AMBOS POKEMONES      
-        dispatch(cargarPokeIzq());
-        dispatch(cargarPokeDer());
+        //MOSTRAR PESOS DE AMBOS POKEMONES
+        dispatch(cargarPokeIzq(pokebd));
+        dispatch(cargarPokeDer(pokebd));
       }
     }
   };

@@ -8,16 +8,8 @@ import {
 
 const initialState = {
   pokebd: [],
-  pokeizq: {
-    id: 0,
-    nombre: "",
-    imagen: "",
-  },
-  pokeder: {
-    id: 0,
-    nombre: "",
-    imagen: "",
-  },
+  pokeizq: null,
+  pokeder: null,
 };
 
 export default function (state = initialState, action) {

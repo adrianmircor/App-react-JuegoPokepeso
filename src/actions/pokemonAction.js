@@ -4,6 +4,7 @@ import {
   REINICIAR_POKEBD,
   LLENAR_ID_POKEMONES,
   SACAR_ID_POKEMON,
+  BOOL_DATA,
 } from "../types";
 
 //Las Funciones despachan a Actions (contiene type y payload)
@@ -81,4 +82,17 @@ export function obtenerIdPokemon(id) {
 const extraerId = (id) => ({
   type: SACAR_ID_POKEMON,
   payload: id,
+});
+
+/*---------------------------------------------------------------------*/
+
+export function modificarBool(bool) {
+  return (dispatch) => {
+    dispatch(updateBool(bool));
+  };
+}
+
+const updateBool = (bool) => ({
+  type: BOOL_DATA,
+  payload: bool,
 });

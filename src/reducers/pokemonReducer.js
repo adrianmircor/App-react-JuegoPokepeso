@@ -43,7 +43,7 @@ export default function (state = initialState, action) {
     case BOOL_DATA:
       return {
         ...state,
-        data: true,
+        data: action.payload,
       };
     default:
       return state;

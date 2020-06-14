@@ -2,6 +2,9 @@
 //Falta modal de "Vas bien" el otro pokemon tiene x kg
 //Falta modal de :( y comparar los pesos (en kg) de ambos pokemones
 
+//Si gana -> funciona correctamente
+//Si pierde -> funciona correctamente
+
 import React, { useEffect, useState } from "react";
 
 //REDUX
@@ -9,13 +12,14 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   cargarPokeIzq,
   cargarPokeDer,
-  cargarPokeBd,
+  /* cargarPokeBd,
   reiniciarPokeBd,
   cargarPokeIzqExito,
   cargarPokeDerExito,
-  cargarPokeDif,
+  cargarPokeDif, */
   llenarIdPokemones,
-  obtenerIdPokemon,
+  /* obtenerIdPokemon, */
+  modificarBool
 } from "../../actions/pokemonAction";
 
 import { aumentarPuntos, reiniciarPuntos } from "../../actions/pointsAction";
@@ -38,13 +42,16 @@ const Main = () => {
     dispatch(llenarIdPokemones());
   }, []);
 
+  //Cada vez que data sea verdadero, presentara a los 2 pokemones aleatorios
   useEffect(() => {
     if (data) {
       dispatch(cargarPokeIzq());
       dispatch(cargarPokeDer());
       console.log(pokeids);
+      console.log("DEL 2DO USE EFFECT");
+      dispatch(modificarBool(false))
     }
-  }, [data===true]);
+  }, [data===true]); //¡Se puede usar del STORE directamente aqui!
 
   console.log("exec");
 
@@ -84,10 +91,9 @@ const Main = () => {
          */
         dispatch(llenarIdPokemones());
         dispatch(reiniciarPuntos());
-        dispatch(cargarPokeIzq());
-        dispatch(cargarPokeDer());
-
-        //Mostrar pokemones distintos
+        //¡!
+        /*SE EJECUTA DEL useEffect, ya que 
+        data cambia a true*/
       }
     } else {
       if (poke === pokeder) {
@@ -118,9 +124,9 @@ const Main = () => {
         dispatch(reiniciarPuntos());
 
         //Mostrar pokemones distintos
-        console.log("Pok dif");
-        dispatch(cargarPokeIzq());
-        dispatch(cargarPokeDer());
+        //¡!
+        /*SE EJECUTA DEL useEffect, ya que 
+        data cambia a true*/
       }
     }
   };

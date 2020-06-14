@@ -1,7 +1,6 @@
 import {
   AGREGAR_A_POKEIZQ,
   AGREGAR_A_POKEDER,
-  REINICIAR_POKEBD,
   LLENAR_ID_POKEMONES,
   SACAR_ID_POKEMON,
   BOOL_DATA,
@@ -46,7 +45,7 @@ const cargarPokemonDerecha = () => ({
 export function llenarIdPokemones() {
   return async (dispatch) => {
     let arrayID = [];
-    for (let index = 1; index <= 15; index++) {
+    for (let index = 1; index <= 20; index++) {
       try {
         let response = await fetch(
           `https://pokeapi.co/api/v2/pokemon/${index}`
@@ -65,6 +64,7 @@ export function llenarIdPokemones() {
       }
     }
     arrayID.sort(() => (Math.random() > 0.5 ? 1 : -1));
+
     dispatch(fullPokemones(arrayID));
   };
 }

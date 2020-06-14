@@ -5,20 +5,14 @@
 //Si gana -> funciona correctamente
 //Si pierde -> funciona correctamente
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 //REDUX
 import { useSelector, useDispatch } from "react-redux";
 import {
   cargarPokeIzq,
   cargarPokeDer,
-  /* cargarPokeBd,
-  reiniciarPokeBd,
-  cargarPokeIzqExito,
-  cargarPokeDerExito,
-  cargarPokeDif, */
   llenarIdPokemones,
-  /* obtenerIdPokemon, */
   modificarBool
 } from "../../actions/pokemonAction";
 
@@ -29,9 +23,7 @@ const Main = () => {
 
   const pokeizq = useSelector((state) => state.pokemon.pokeizq);
   const pokeder = useSelector((state) => state.pokemon.pokeder);
-  const pokebd = useSelector((state) => state.pokemon.pokebd);
   const pokeids = useSelector((state) => state.pokemon.pokeids);
-  const pokeidsolo = useSelector((state) => state.pokemon.pokeidsolo);
   const data = useSelector((state) => state.pokemon.data);
   useEffect(() => {
     //Mostrar pokemones distintos
@@ -72,9 +64,12 @@ const Main = () => {
           //Mostrar modal y terminar el programa
           /*
            */
-          /* console.log("Ganaste");
+          console.log("Ganaste");
           dispatch(aumentarPuntos());
-          dispatch(llenarIdPokemones()); */
+          /*
+          MODAL DE VICTORIA
+          */
+          dispatch(llenarIdPokemones());
         } else {
           //FALTA AGREGAR MODAL -> "VAS BIEN"
           /*
@@ -101,9 +96,9 @@ const Main = () => {
           //Mostrar modal y terminar el programa
           /*
            */
-          /* console.log("Ganaste");
+          console.log("Ganaste");
           dispatch(aumentarPuntos());
-          dispatch(llenarIdPokemones()); */
+          dispatch(llenarIdPokemones());
         } else {
           //FALTA AGREGAR MODAL -> "VAS BIEN"
           /*

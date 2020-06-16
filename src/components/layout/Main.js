@@ -41,7 +41,7 @@ const Main = () => {
 
     dispatch(reiniciarPuntos());
     dispatch(llenarIdPokemones());
-    console.log("Se carga por 1ra vez");
+    //console.log("Se carga por 1ra vez");
     // eslint-disable-next-line
   }, []);
 
@@ -50,13 +50,13 @@ const Main = () => {
   const [modalShowDouble, setModalShowDouble] = useState(false);
   useEffect(() => {
     if (data) {
-      console.log(
+      /* console.log(
         "DEL 2DO USE EFFECT ya se puede observar lo cargado: ",
         pokeids
-      );
+      ); */
       dispatch(cargarPokeIzq());
       dispatch(cargarPokeDer());
-      console.log("Se asigna pok der y pok izq");
+      //console.log("Se asigna pok der y pok izq");
       dispatch(modificarBool(false));
     }
     // eslint-disable-next-line
@@ -80,7 +80,7 @@ const Main = () => {
   const cerrarModalDouble = () => {
     setModalShowDouble(false);
     dispatch(llenarIdPokemones());
-    console.log("Se carga por PERDER: ", pokeids);
+    //console.log("Se carga por PERDER: ", pokeids);
     dispatch(reiniciarPuntos());
   };
   /* console.log("---> ",pokeids) */
@@ -100,7 +100,7 @@ const Main = () => {
           //Mostrar modal y terminar el programa
           /*
            */
-          console.log("Ganaste");
+          //console.log("Ganaste");
           dispatch(aumentarPuntos());
           /*
           MODAL DE VICTORIA
@@ -130,7 +130,7 @@ const Main = () => {
         //if(clickReiniciar){
         /* dispatch(llenarIdPokemones());
         dispatch(reiniciarPuntos()); */
-        console.log("PERDISTE");
+        //console.log("PERDISTE");
 
         //}
 
@@ -144,7 +144,7 @@ const Main = () => {
           //Mostrar modal y terminar el programa
           /*
            */
-          console.log("Ganaste");
+          //console.log("Ganaste");
           dispatch(aumentarPuntos());
           dispatch(llenarIdPokemones());
         } else {
@@ -168,7 +168,7 @@ const Main = () => {
          */
         setBoolPerder(true);
         setModalShowDouble(true);
-        console.log("PERDISTE");
+        //console.log("PERDISTE");
 
         /* dispatch(llenarIdPokemones());
         dispatch(reiniciarPuntos()); */

@@ -175,7 +175,7 @@ const Main = () => {
   };
 
   return (
-    <div className="row d-flex justify-content-center mt-4 mb-5">
+    <div className="row d-flex justify-content-center mt-4 pb-5">
       <div className="pokemon col-md-4 ">
         <div className="">
           <button onClick={() => handleClickPok(pokeizq)} className="boton">

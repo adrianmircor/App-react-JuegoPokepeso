@@ -36,7 +36,7 @@ const Modale = (props) => {
           <p className="msje pt-4">
             El peso de {pokmodal.nombre} es {pokmodal.peso}
           </p>
-          <img className="imgModal" src={pokmodal.imagen}></img>
+          <img classNam00e="imgModal" src={pokmodal.imagen} alt="infopok"></img>
         </div>
       </Modal.Header>
     </Modal>

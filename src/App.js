@@ -9,7 +9,7 @@ import store from "./store"; //store -> index de reducer -> state del Reducer
 
 function App() {
   return (
-    <div>
+    <div className="app">
       <Provider store={store}>
         <Header></Header>
         <Points></Points>

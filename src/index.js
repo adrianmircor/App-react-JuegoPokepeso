@@ -5,9 +5,11 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  //Comentar lo siguiente para eliminar el findDOMOne
+  //https://stackoverflow.com/questions/60802216/warning-finddomnode-is-deprecated-in-strictmode-react-redux-notify
+  //<React.StrictMode>
+    <App />,
+  //</React.StrictMode>,
   document.getElementById('root')
 );
 

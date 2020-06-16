@@ -60,3 +60,17 @@ header {
   outline: none; /*quita el foco alrededor del boton al hacer clic*/
 
 }
+
+.row{
+  width: 100%;
+  margin: 0px;
+}
+
+.imgModal{
+  width: 60%;
+}
+
+.imgModalIzq,
+.imgModalDer{
+  width: 50%;
+}

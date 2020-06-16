@@ -5,7 +5,16 @@
 //Si gana -> funciona correctamente
 //Si pierde -> funciona correctamente
 
-import React, { useEffect } from "react";
+/*Falta:
+-colocar:
+https://fontawesome.com/icons/smile-beam?style=regular (vas bien)
+https://fontawesome.com/icons/laugh-wink?style=regular (GANADOR)
+https://fontawesome.com/icons/frown-open?style=regular (perdedor->reiniciar)*/
+
+import React, { useEffect, useState } from "react";
+
+import Modale from "./ModalSingle";
+import ModaleDouble from "./ModalDouble";
 
 //REDUX
 import { useSelector, useDispatch } from "react-redux";
@@ -13,7 +22,7 @@ import {
   cargarPokeIzq,
   cargarPokeDer,
   llenarIdPokemones,
-  modificarBool
+  modificarBool,
 } from "../../actions/pokemonAction";
 
 import { aumentarPuntos, reiniciarPuntos } from "../../actions/pointsAction";
@@ -32,21 +41,41 @@ const Main = () => {
 
     dispatch(reiniciarPuntos());
     dispatch(llenarIdPokemones());
+    console.log("Se carga por 1ra vez");
   }, []);
 
   //Cada vez que data sea verdadero, presentara a los 2 pokemones aleatorios
+  const [modalShow, setModalShow] = useState(false);
+  const [modalShowDouble, setModalShowDouble] = useState(false);
   useEffect(() => {
     if (data) {
+      console.log("DEL 2DO USE EFFECT ya se puede observar lo cargado: ",pokeids);
       dispatch(cargarPokeIzq());
       dispatch(cargarPokeDer());
-      console.log(pokeids);
-      console.log("DEL 2DO USE EFFECT");
-      dispatch(modificarBool(false))
+      console.log("Se asigna pok der y pok izq");
+      dispatch(modificarBool(false));
     }
-  }, [data===true]); //¡Se puede usar del STORE directamente aqui!
+  }, [data === true]); //¡Se puede usar del STORE directamente aqui!
 
-  console.log("exec");
+  const [pokmodal, setPokModal] = useState({});
+  const [boolperder, setBoolPerder] = useState(false);
 
+  const cerrarModal = () => {
+    setModalShow(false);
+
+    if (pokeizq.peso > pokeder.peso) {
+      dispatch(cargarPokeDer());
+    } else {
+      dispatch(cargarPokeIzq());
+    }
+  };
+
+  const cerrarModalDouble = () => {
+    setModalShowDouble(false);
+    dispatch(llenarIdPokemones());
+    console.log("Se carga por PERDER: ", pokeids);
+    dispatch(reiniciarPuntos());
+  };
   /* console.log("---> ",pokeids) */
 
   /* console.log("AQUI -> ", pokeizq);
@@ -69,13 +98,17 @@ const Main = () => {
           /*
           MODAL DE VICTORIA
           */
+
           dispatch(llenarIdPokemones());
         } else {
           //FALTA AGREGAR MODAL -> "VAS BIEN"
           /*
            */
+          setModalShow(true); //show pasa a true para mostrar el modal
+          setBoolPerder(false); //Para mostrar modal con solo 1 pokemon
+          setPokModal(pokeder); //Mostrar el unico pokemon del modal
+
           dispatch(aumentarPuntos());
-          dispatch(cargarPokeDer());
         }
       } else {
         //FALTA AGREGAR MODAL -> CARITA TRISTE
@@ -84,8 +117,16 @@ const Main = () => {
         //MOSTRAR PESOS DE AMBOS POKEMONES
         /*
          */
-        dispatch(llenarIdPokemones());
-        dispatch(reiniciarPuntos());
+        setBoolPerder(true);
+        setModalShowDouble(true); //Abre el modal
+
+        //if(clickReiniciar){
+        /* dispatch(llenarIdPokemones());
+        dispatch(reiniciarPuntos()); */
+        console.log("PERDISTE");
+
+        //}
+
         //¡!
         /*SE EJECUTA DEL useEffect, ya que 
         data cambia a true*/
@@ -103,8 +144,11 @@ const Main = () => {
           //FALTA AGREGAR MODAL -> "VAS BIEN"
           /*
            */
+          setModalShow(true); //show pasa a true para mostrar el modal
+          setBoolPerder(false); //Para mostrar modal con solo 1 pokemon
+          setPokModal(pokeizq); //Mostrar el unico pokemon del modal
+
           dispatch(aumentarPuntos());
-          dispatch(cargarPokeIzq());
         }
       } else {
         //TRAER A 2 NUEVOS POKEMONES
@@ -115,8 +159,12 @@ const Main = () => {
         //MOSTRAR PESOS DE AMBOS POKEMONES
         /*
          */
-        dispatch(llenarIdPokemones());
-        dispatch(reiniciarPuntos());
+        setBoolPerder(true);
+        setModalShowDouble(true);
+        console.log("PERDISTE");
+
+        /* dispatch(llenarIdPokemones());
+        dispatch(reiniciarPuntos()); */
 
         //Mostrar pokemones distintos
         //¡!
@@ -151,6 +199,21 @@ const Main = () => {
           <h5 className="text-center">{pokeder.peso}</h5>
         </div>
       </div>
+      <Modale
+        pokmodal={pokmodal}
+        show={modalShow}
+        boolperder={boolperder ? 1 : 0}
+        onHide={() => cerrarModal()}
+      />
+      {boolperder ? (
+        <ModaleDouble
+          show={modalShowDouble}
+          pokeizq={pokeizq}
+          pokeder={pokeder}
+          boolperder={boolperder ? 1 : 0}
+          onHide={() => cerrarModalDouble()}
+        />
+      ) : null}
     </div>
   );
 };

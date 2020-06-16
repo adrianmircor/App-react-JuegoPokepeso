@@ -45,7 +45,7 @@ const cargarPokemonDerecha = () => ({
 export function llenarIdPokemones() {
   return async (dispatch) => {
     let arrayID = [];
-    for (let index = 1; index <= 20; index++) {
+    for (let index = 1; index <= 150; index++) {
       try {
         let response = await fetch(
           `https://pokeapi.co/api/v2/pokemon/${index}`

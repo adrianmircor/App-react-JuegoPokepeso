@@ -42,6 +42,7 @@ const Main = () => {
     dispatch(reiniciarPuntos());
     dispatch(llenarIdPokemones());
     console.log("Se carga por 1ra vez");
+    // eslint-disable-next-line
   }, []);
 
   //Cada vez que data sea verdadero, presentara a los 2 pokemones aleatorios
@@ -49,15 +50,21 @@ const Main = () => {
   const [modalShowDouble, setModalShowDouble] = useState(false);
   useEffect(() => {
     if (data) {
-      console.log("DEL 2DO USE EFFECT ya se puede observar lo cargado: ",pokeids);
+      console.log(
+        "DEL 2DO USE EFFECT ya se puede observar lo cargado: ",
+        pokeids
+      );
       dispatch(cargarPokeIzq());
       dispatch(cargarPokeDer());
       console.log("Se asigna pok der y pok izq");
       dispatch(modificarBool(false));
     }
+    // eslint-disable-next-line
   }, [data === true]); //¡Se puede usar del STORE directamente aqui!
 
-  const [pokmodal, setPokModal] = useState({});
+  const [pokmodal, setPokModal] = useState({
+    nombre: "",
+  });
   const [boolperder, setBoolPerder] = useState(false);
 
   const cerrarModal = () => {
@@ -177,12 +184,14 @@ const Main = () => {
   return (
     <div className="row d-flex justify-content-center mt-4 pb-5">
       <div className="pokemon col-md-4 ">
-        <div className="">
+        <div className="container-pokemon">
           <button onClick={() => handleClickPok(pokeizq)} className="boton">
             <img className="pokem" src={pokeizq.imagen} width="300px" alt="" />
           </button>
-          <h5 className="text-center">{pokeizq.nombre}</h5>
-          <h5 className="text-center">{pokeizq.peso}</h5>
+          <h5 className="info-pokemon text-center">
+            {pokeizq.nombre.toUpperCase()}
+          </h5>
+          {/* <h5 className="info-pokemon text-center">{pokeizq.peso}</h5> */}
         </div>
       </div>
       <div className="pokebola col-md-4 d-flex justify-content-center align-self-center ">
@@ -191,12 +200,14 @@ const Main = () => {
         </div>
       </div>
       <div className="pokemon col-md-4">
-        <div className="">
+        <div className="container-pokemon">
           <button onClick={() => handleClickPok(pokeder)} className="boton">
             <img className="pokem" src={pokeder.imagen} width="300px" alt="" />
           </button>
-          <h5 className="text-center">{pokeder.nombre}</h5>
-          <h5 className="text-center">{pokeder.peso}</h5>
+          <h5 className="info-pokemon text-center">
+            {pokeder.nombre.toUpperCase()}
+          </h5>
+          {/* <h5 className="info-pokemon text-center">{pokeder.peso}</h5> */}
         </div>
       </div>
       <Modale

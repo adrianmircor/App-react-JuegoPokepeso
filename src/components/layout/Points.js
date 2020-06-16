@@ -9,7 +9,7 @@ const Points = () => {
     <div className="container mt-4">
       <div className="row mt-3">
         <div className="col d-flex justify-content-end">
-          <h5 className="text-center">Poke-kg: {points}</h5>
+          <h5 className="info-puntos text-center">Pokepuntos: {points}</h5>
         </div>
       </div>
     </div>

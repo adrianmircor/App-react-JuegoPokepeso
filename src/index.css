@@ -8,12 +8,21 @@ header {
   );
 }
 
-.pokemon {
-  background-color: rgb(223, 223, 57);
-  border-radius: 13%;
-}
 .col-md-4 {
   padding: 0;
+}
+.info-pokemon{
+  position: relative;
+  top: -35px;
+  -webkit-text-stroke: 1.5px black;
+  color:white;
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+.info-puntos{
+  color:white;
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 @media screen and (min-width: 411.9px) and (max-width: 844.9px) {
   .tarjeta-pokemon {

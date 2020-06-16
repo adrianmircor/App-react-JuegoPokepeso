@@ -36,13 +36,13 @@ const ModaleDouble = (props) => {
           <div className="row">
             <div className="col-6">
               <p className="msje pt-4">
-                El peso de {pokeizq.nombre} es {pokeizq.peso}
+                Peso de {pokeizq.nombre.toUpperCase()} es {pokeizq.peso}
               </p>{" "}
               <img className="imgModalIzq" src={pokeizq.imagen} alt=""></img>
             </div>
             <div className="col-6">
               <p className="msje pt-4">
-                El peso de {pokeder.nombre} es {pokeder.peso}
+                Peso de {pokeder.nombre.toUpperCase()} es {pokeder.peso}
               </p>{" "}
               <img className="imgModalDer" src={pokeder.imagen} alt=""></img>
             </div>

@@ -44,6 +44,10 @@ header {
     margin-left: -20px;
     margin-right: -20px;
   }
+
+  .modal-header{
+    height: 95vh; /*MEJORAR POR TAMAÑO DE PANTALLA*/
+  }
 }
 
 .boton {
@@ -54,23 +58,48 @@ header {
 .boton:hover,
 .boton:active,
 .boton:focus {
-  border-top-left-radius: 50%; 
-  border-top-right-radius: 10%; 
+  border-top-left-radius: 50%;
+  border-top-right-radius: 10%;
   border-radius: 10%;
   outline: none; /*quita el foco alrededor del boton al hacer clic*/
-
 }
 
-.row{
+.row {
   width: 100%;
   margin: 0px;
 }
 
-.imgModal{
-  width: 60%;
+.imgModal {
+  width: 50%; /*MEJORAR POR TAMAÑO DE PANTALLA*/
+  position: relative;
+  top: -30px;
+  display: block;
+  margin: auto;
 }
 
 .imgModalIzq,
-.imgModalDer{
-  width: 50%;
+.imgModalDer {
+  width: 95%;
+  position: relative;
+  top: -30px;
+  display: block;
+  margin: auto;
+}
+
+.container-msje {
+  width: 100%;
+}
+
+.msje {
+  text-align: center;
+  height: min-content;
+}
+
+.modal-header{
+  padding: 0;
+}
+.close{
+  position: relative;
+  top: 8px;
+  right: 13px;
 }

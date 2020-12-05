@@ -1,15 +1,5 @@
-//Falta modal de ganador -> click aceptar -> reiniciar puntaje
-//Falta modal de "Vas bien" el otro pokemon tiene x kg
-//Falta modal de :( y comparar los pesos (en kg) de ambos pokemones
-
-//Si gana -> funciona correctamente
-//Si pierde -> funciona correctamente
-
-/*Falta:
--colocar:
-https://fontawesome.com/icons/smile-beam?style=regular (vas bien)
-https://fontawesome.com/icons/laugh-wink?style=regular (GANADOR)
-https://fontawesome.com/icons/frown-open?style=regular (perdedor->reiniciar)*/
+//Quitar Snorlax, colocar spinner (Reactstrap) de loading
+//Cuando los pokemones tengan igual peso, pasar no más
 
 import React, { useEffect, useState } from "react";
 
@@ -26,6 +16,7 @@ import {
 } from "../../actions/pokemonAction";
 
 import { aumentarPuntos, reiniciarPuntos } from "../../actions/pointsAction";
+import Loading from "./Loading";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -40,14 +31,14 @@ const Main = () => {
     //TAMPOCO SE PUEDE USAR DE FORMA DIRECTA EN FUNCIONES!!
 
     dispatch(reiniciarPuntos());
+
     dispatch(llenarIdPokemones());
     //console.log("Se carga por 1ra vez");
+    console.log("Se ejecuta solo 1 vez");
     // eslint-disable-next-line
   }, []);
 
   //Cada vez que data sea verdadero, presentara a los 2 pokemones aleatorios
-  const [modalShow, setModalShow] = useState(false);
-  const [modalShowDouble, setModalShowDouble] = useState(false);
   useEffect(() => {
     if (data) {
       /* console.log(
@@ -62,9 +53,9 @@ const Main = () => {
     // eslint-disable-next-line
   }, [data === true]); //¡Se puede usar del STORE directamente aqui!
 
-  const [pokmodal, setPokModal] = useState({
-    nombre: "",
-  });
+  const [modalShow, setModalShow] = useState(false);
+  const [modalShowDouble, setModalShowDouble] = useState(false);
+  const [pokmodal, setPokModal] = useState({ nombre: "" });
   const [boolperder, setBoolPerder] = useState(false);
 
   const cerrarModal = () => {
@@ -72,23 +63,52 @@ const Main = () => {
 
     if (pokeizq.peso > pokeder.peso) {
       dispatch(cargarPokeDer());
-    } else {
+    } else if (pokeizq.peso < pokeder.peso) {
       dispatch(cargarPokeIzq());
+    } else {
+      //Llamar a modal de empate,
     }
   };
 
   const cerrarModalDouble = () => {
     setModalShowDouble(false);
+    
     dispatch(llenarIdPokemones());
     //console.log("Se carga por PERDER: ", pokeids);
     dispatch(reiniciarPuntos());
   };
-  /* console.log("---> ",pokeids) */
+  console.log("---> ", pokeids);
 
-  /* console.log("AQUI -> ", pokeizq);
-  console.log("AQUI BD-> ", pokebd); */
+  /* console.log("AQUI -> ", pokeizq);*/
 
-  if (!pokeizq || !pokeder) return null;
+  /* if (!pokeizq || !pokeder) {
+    return (
+      <div className="row d-flex justify-content-center mt-4 pb-5">
+        <div className="pokemon col-md-4">
+          <div className="container-pokemon">
+            <h5 className="info-pokemon text-center">Cargando...</h5>
+          </div>
+        </div>
+
+        <div className="pokebola col-md-4 d-flex justify-content-center align-self-center ">
+          <div>
+            <img
+              className="pokeb"
+              src="/img/pokebola.png"
+              width="150px"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <div className="pokemon col-md-4">
+          <div className="container-pokemon">
+            <h5 className="info-pokemon text-center">Cargando...</h5>
+          </div>
+        </div>
+      </div>
+    );
+  }  *///H. mostrar loading (parece q aqui es donde no muestra nada del body)
 
   //FALTA AGREGAR MODAL
   const handleClickPok = (poke) => {
@@ -126,7 +146,7 @@ const Main = () => {
          */
         setBoolPerder(true);
         setModalShowDouble(true); //Abre el modal
-
+        
         //if(clickReiniciar){
         /* dispatch(llenarIdPokemones());
         dispatch(reiniciarPuntos()); */
@@ -166,6 +186,7 @@ const Main = () => {
         //MOSTRAR PESOS DE AMBOS POKEMONES
         /*
          */
+        
         setBoolPerder(true);
         setModalShowDouble(true);
         //console.log("PERDISTE");
@@ -185,31 +206,56 @@ const Main = () => {
     <div className="row d-flex justify-content-center mt-4 pb-5">
       <div className="pokemon col-md-4 ">
         <div className="container-pokemon">
-          <button onClick={() => handleClickPok(pokeizq)} className="boton">
-            <img className="pokem" src={pokeizq.imagen} width="300px" alt="" />
-          </button>
-          <h5 className="info-pokemon text-center">
-            {pokeizq.nombre.toUpperCase()}
-          </h5>
-          {/* <h5 className="info-pokemon text-center">{pokeizq.peso}</h5> */}
+          {(pokeizq === null) ? (
+            <div>
+              <Loading></Loading>
+            </div>
+          ) : (
+            <div>
+              <button onClick={() => handleClickPok(pokeizq)} className="boton">
+                <img
+                  className="pokem"
+                  src={pokeizq.imagen}
+                  width="300px"
+                  alt=""
+                />
+              </button>
+              <h5 className="info-pokemon text-center">
+                {pokeizq.nombre.toUpperCase()}
+              </h5>
+            </div>
+          )}
         </div>
       </div>
+
       <div className="pokebola col-md-4 d-flex justify-content-center align-self-center ">
         <div>
           <img className="pokeb" src="/img/pokebola.png" width="150px" alt="" />
         </div>
       </div>
+
       <div className="pokemon col-md-4">
         <div className="container-pokemon">
-          <button onClick={() => handleClickPok(pokeder)} className="boton">
-            <img className="pokem" src={pokeder.imagen} width="300px" alt="" />
-          </button>
-          <h5 className="info-pokemon text-center">
-            {pokeder.nombre.toUpperCase()}
-          </h5>
-          {/* <h5 className="info-pokemon text-center">{pokeder.peso}</h5> */}
+          {(pokeder === null) ? (
+            <Loading></Loading>
+          ) : (
+            <div>
+              <button onClick={() => handleClickPok(pokeder)} className="boton">
+                <img
+                  className="pokem"
+                  src={pokeder.imagen}
+                  width="300px"
+                  alt=""
+                />
+              </button>
+              <h5 className="info-pokemon text-center">
+                {pokeder.nombre.toUpperCase()}
+              </h5>
+            </div>
+          )}
         </div>
       </div>
+
       <Modale
         pokmodal={pokmodal}
         show={modalShow}

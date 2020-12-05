@@ -4,6 +4,7 @@ import {
   LLENAR_ID_POKEMONES,
   SACAR_ID_POKEMON,
   BOOL_DATA,
+  ASIGNAR_POK_NULL,
 } from "../types";
 
 //Cada reducer tiene su propio state
@@ -44,6 +45,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         data: action.payload,
+      };
+    case ASIGNAR_POK_NULL:
+      return {
+        ...state,
+        pokeizq: null,
+        pokeder: null,
       };
     default:
       return state;

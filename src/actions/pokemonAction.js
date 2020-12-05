@@ -4,6 +4,7 @@ import {
   LLENAR_ID_POKEMONES,
   SACAR_ID_POKEMON,
   BOOL_DATA,
+  ASIGNAR_POK_NULL
 } from "../types";
 
 //Las Funciones despachan a Actions (contiene type y payload)
@@ -26,7 +27,7 @@ const cargarPokemonIzquierda = () => ({
 });
 
 //Función para Cargar un nuevo pokemon al lado derecho
-export function cargarPokeDer(id) {
+export function cargarPokeDer() {
   return async (dispatch) => {
     //Antes de llamar a APi, corroborar si el id es nuevo o no
     //Si es nuevo, llamar a api,
@@ -46,31 +47,37 @@ export function llenarIdPokemones() {
   return async (dispatch) => {
     let arrayID = [];
     for (let index = 1; index <= 150; index++) {
-      try {
-        let response = await fetch(
-          `https://pokeapi.co/api/v2/pokemon/${index}`
-        );
-        let pokemon = await response.json();
-        //console.log(respuesta.data)
-        /* console.log("Pokemon -> ", pokemon); */
-        arrayID.push({
-          id: pokemon.id,
-          nombre: pokemon.name,
-          peso: pokemon.weight,
-          imagen: pokemon.sprites.front_default,
-        });
-      } catch (error) {
-        console.log(error);
+
+      if(index !== 143){
+        try {
+          let response = await fetch(
+            `https://pokeapi.co/api/v2/pokemon/${index}`
+          );
+          let pokemon = await response.json();
+          //console.log(respuesta.data)
+          /* console.log("Pokemon -> ", pokemon); */
+          arrayID.push({
+            id: pokemon.id,
+            nombre: pokemon.name,
+            peso: pokemon.weight,
+            imagen: pokemon.sprites.front_default,
+          });
+        } catch (error) {
+          console.log(error);
+        }
       }
     }
+
     arrayID.sort(() => (Math.random() > 0.5 ? 1 : -1));
 
+    dispatch(cargarPokemonNull())
     dispatch(fullPokemones(arrayID));
+
   };
 }
-const fullPokemones = (id) => ({
+const fullPokemones = (arrayId) => ({
   type: LLENAR_ID_POKEMONES,
-  payload: id,
+  payload: arrayId,
 });
 /*---------------------------------------------------------------------*/
 export function obtenerIdPokemon(id) {
@@ -95,4 +102,17 @@ export function modificarBool(bool) {
 const updateBool = (bool) => ({
   type: BOOL_DATA,
   payload: bool,
+});
+
+/*---------------------------------------------------------------------*/
+//Función que asigna null a pokemon cuando pierde
+export function pokeNull() {
+  return async (dispatch) => {
+
+    dispatch(cargarPokemonNull());
+  };
+}
+
+const cargarPokemonNull = () => ({
+  type: ASIGNAR_POK_NULL,
 });

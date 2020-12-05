@@ -24,30 +24,35 @@ const ModaleDouble = (props) => {
     >
       <Modal.Header closeButton>
         {/*AGREGAR PERDISTE */}
-        <div className="container pr-0 ml-2">
-          <div className="row pt-3 d-flex justify-content-center">
-            <i className="far fa-frown-open fa-10x"></i>
-          </div>
-          <div className="row pt-3 d-flex justify-content-center">
-            <h3 className="msje">
-              ¡ PERDISTE, <span>obtuviste {puntos} pokepuntos </span>!
-            </h3>
-          </div>
-          <div className="row">
-            <div className="col-6">
-              <p className="msje pt-4">
-                Peso de {pokeizq.nombre.toUpperCase()} es {pokeizq.peso}
-              </p>{" "}
-              <img className="imgModalIzq" src={pokeizq.imagen} alt=""></img>
+
+        {!pokeizq || !pokeder ? (
+          <div></div>
+        ) : (
+          <div className="container pr-0 ml-2">
+            <div className="row pt-3 d-flex justify-content-center">
+              <i className="far fa-frown-open fa-10x"></i>
             </div>
-            <div className="col-6">
-              <p className="msje pt-4">
-                Peso de {pokeder.nombre.toUpperCase()} es {pokeder.peso}
-              </p>{" "}
-              <img className="imgModalDer" src={pokeder.imagen} alt=""></img>
+            <div className="row pt-3 d-flex justify-content-center">
+              <h3 className="msje">
+                ¡ PERDISTE, <span>obtuviste {puntos} pokepuntos </span>!
+              </h3>
+            </div>
+            <div className="row">
+              <div className="col-6">
+                <p className="msje pt-4">
+                  Peso de {pokeizq.nombre.toUpperCase()} es {pokeizq.peso}
+                </p>{" "}
+                <img className="imgModalIzq" src={pokeizq.imagen} alt=""></img>
+              </div>
+              <div className="col-6">
+                <p className="msje pt-4">
+                  Peso de {pokeder.nombre.toUpperCase()} es {pokeder.peso}
+                </p>{" "}
+                <img className="imgModalDer" src={pokeder.imagen} alt=""></img>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </Modal.Header>
     </Modal>
   );

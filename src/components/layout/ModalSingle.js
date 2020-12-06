@@ -9,8 +9,8 @@ const Modale = (props) => {
   const puntos = useSelector((state) => state.points.puntos);
 
   const fueCerrado = () => {
-    console.log("Fue cerrado");
-    console.log("show", show);
+    /* console.log("Fue cerrado");
+    console.log("show", show); */
   };
   return (
     <Modal

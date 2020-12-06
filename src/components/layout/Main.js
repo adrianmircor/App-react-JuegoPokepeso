@@ -1,4 +1,3 @@
-//Quitar Snorlax, colocar spinner (Reactstrap) de loading
 //Cuando los pokemones tengan igual peso, pasar no más
 
 import React, { useEffect, useState } from "react";
@@ -34,7 +33,7 @@ const Main = () => {
 
     dispatch(llenarIdPokemones());
     //console.log("Se carga por 1ra vez");
-    console.log("Se ejecuta solo 1 vez");
+    /* console.log("Se ejecuta solo 1 vez"); */
     // eslint-disable-next-line
   }, []);
 
@@ -77,7 +76,7 @@ const Main = () => {
     //console.log("Se carga por PERDER: ", pokeids);
     dispatch(reiniciarPuntos());
   };
-  console.log("---> ", pokeids);
+  /* console.log("---> ", pokeids); */
 
   /* console.log("AQUI -> ", pokeizq);*/
 
@@ -158,7 +157,7 @@ const Main = () => {
         /*SE EJECUTA DEL useEffect, ya que 
         data cambia a true*/
       }
-    } else {
+    } else if(pokeizq.peso < pokeder.peso) {
       if (poke === pokeder) {
         if (pokeids.length === 0) {
           //Mostrar modal y terminar el programa
@@ -199,6 +198,9 @@ const Main = () => {
         /*SE EJECUTA DEL useEffect, ya que 
         data cambia a true*/
       }
+    } else {
+      //modal de empate
+      dispatch(aumentarPuntos());
     }
   };
 
@@ -259,7 +261,7 @@ const Main = () => {
       <Modale
         pokmodal={pokmodal}
         show={modalShow}
-        boolperder={boolperder ? 1 : 0}
+        /* boolperder={boolperder ? 1 : 0} */
         onHide={() => cerrarModal()}
       />
       {boolperder ? (
@@ -267,7 +269,7 @@ const Main = () => {
           show={modalShowDouble}
           pokeizq={pokeizq}
           pokeder={pokeder}
-          boolperder={boolperder ? 1 : 0}
+          /* boolperder={boolperder ? 1 : 0} */
           onHide={() => cerrarModalDouble()}
         />
       ) : null}
